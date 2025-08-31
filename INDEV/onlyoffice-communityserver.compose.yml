@@ -1,0 +1,109 @@
+services:
+  mysql:
+    container_name: onlyoffice-mysql-server
+    image: mysql:8.0.29
+    environment:
+     - MYSQL_ROOT_PASSWORD=my-secret-pw
+    stdin_open: true
+    tty: true
+    restart: always
+    volumes:
+     - mysql-data:/var/lib/mysql
+
+  onlyoffice-community-server:
+    container_name: onlyoffice-community-server
+    image: onlyoffice/communityserver:12.6.0.1900
+    depends_on:
+     - mysql
+     - onlyoffice-elasticsearch
+    environment:
+     - SERVICE_FQDN_COMMUNITYSERVER_80
+     - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREKEY
+     - CONTROL_PANEL_PORT_80_TCP=80
+     - CONTROL_PANEL_PORT_80_TCP_ADDR=onlyoffice-control-panel
+     # - DOCUMENT_SERVER_PORT_80_TCP_ADDR=${DOCUMENT_SERVER_ADDRESS}
+     # - DOCUMENT_SERVER_JWT_ENABLED=true
+     # - DOCUMENT_SERVER_JWT_SECRET=${DOCUMENT_SERVER_SECRET}
+     # - DOCUMENT_SERVER_JWT_HEADER=AuthorizationJwt
+     - MYSQL_SERVER_ROOT_PASSWORD=my-secret-pw
+     - MYSQL_SERVER_DB_NAME=onlyoffice
+     - MYSQL_SERVER_HOST=onlyoffice-mysql-server
+     - MYSQL_SERVER_USER=${SERVICE_USER_MYSQL}
+     - MYSQL_SERVER_PASS=${SERVICE_PASSWORD_MYSQL}
+     # - MAIL_SERVER_API_PORT=80
+     # - MAIL_SERVER_API_HOST=onlyoffice-mail-server
+     # - MAIL_SERVER_DB_HOST=onlyoffice-mysql-server
+     # - MAIL_SERVER_DB_PORT=3306
+     # - MAIL_SERVER_DB_NAME=onlyoffice_mailserver
+     # - MAIL_SERVER_DB_USER=mail_admin
+     # - MAIL_SERVER_DB_PASS=Isadmin123
+     - ELASTICSEARCH_SERVER_HOST=onlyoffice-elasticsearch
+     - ELASTICSEARCH_SERVER_HTTPPORT=9200
+    ports:
+    #  - '80:80'
+    #  - '443:443'
+    - '5222:5222'
+    stdin_open: true
+    tty: true
+    restart: always
+    privileged: true
+    cgroup: host
+    volumes:
+     - community-data:/var/www/onlyoffice/Data
+     - community-log:/var/log/onlyoffice
+     - community-letsencrypt:/etc/letsencrypt
+     - document-data:/var/www/onlyoffice/DocumentServerData
+     - community-certs:/var/www/onlyoffice/Data/certs
+     - /sys/fs/cgroup:/sys/fs/cgroup:rw
+
+  onlyoffice-elasticsearch:
+    image: onlyoffice/elasticsearch:7.16.3
+    container_name: onlyoffice-elasticsearch
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g -Dlog4j2.formatMsgNoLookups=true"
+      - "indices.fielddata.cache.size=30%"
+      - "indices.memory.index_buffer_size=30%" 
+      - "ingest.geoip.downloader.enabled=false"  
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65535
+        hard: 65535
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    expose:
+      - "9200"
+      - "9300"
+
+  onlyoffice-control-panel:
+    container_name: onlyoffice-control-panel
+    depends_on:
+     - onlyoffice-community-server
+    image: onlyoffice/controlpanel:3.5.2.530
+    environment:
+     - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREKEY
+    expose:
+      - '80'
+      - '443'
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - controlpanel-data:/var/www/onlyoffice/Data
+      - controlpanel-log:/var/log/onlyoffice
+    stdin_open: true
+    tty: true
+
+volumes:
+  community-data: null
+  community-log: null
+  community-letsencrypt: null
+  community-certs: null
+  controlpanel-data: null
+  controlpanel-log: null
+  mysql-data: null
+  es-data: null

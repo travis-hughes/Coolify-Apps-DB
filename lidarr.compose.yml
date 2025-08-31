@@ -1,0 +1,16 @@
+services:
+  lidarr:
+    image: 'lscr.io/linuxserver/lidarr:latest'
+    environment:
+      - SERVICE_FQDN_LIDARR_8686
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - lidarr-config:/config:rw
+      - '/Appbox-Data/Media/Music:/music:rw'
+      - '/Appbox-Data/Downloads:/downloads:rw'
+    restart: unless-stopped
+
+volumes:
+  lidarr-config: null

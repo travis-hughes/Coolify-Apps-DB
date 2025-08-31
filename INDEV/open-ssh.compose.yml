@@ -1,0 +1,21 @@
+services:
+  openssh-server:
+    image: lscr.io/linuxserver/openssh-server:latest
+    hostname: Appbox SSH
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUDO_ACCESS=false
+      - PASSWORD_ACCESS=true
+      - USER_PASSWORD=$SERVICE_PASSWORD_SSHD
+      - USER_NAME= $SERVICE_USER_SSHD
+    volumes:
+      - openssh-config:/config
+      # - /Appbox-Data/Media:/home/user
+    ports:
+      - 2222:2222
+    restart: unless-stopped
+
+volumes:
+  openssh-config: null

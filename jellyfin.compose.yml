@@ -1,0 +1,14 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    environment:
+      - SERVICE_FQDN_JELLYFIN_8096
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - jellyfin-config:/config
+      - '/Appbox-Data/Media:/data:rw'
+
+volumes:
+  jellyfin-config: null

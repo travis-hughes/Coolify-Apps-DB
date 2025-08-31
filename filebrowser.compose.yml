@@ -1,0 +1,14 @@
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    environment:
+      - SERVICE_FQDN_FILEBROWSER_80
+    volumes:
+      - /Appbox-Data/Media:/srv:rw
+      - filebrowser-db:/database
+      - filebrowser-config:/config
+    restart: unless-stopped
+
+volumes:
+  filebrowser-db: null
+  filebrowser-config: null
