@@ -13,4 +13,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  lidarr-config: null
+  lidarr-config:
+    name: "lidarr-config"

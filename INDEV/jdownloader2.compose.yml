@@ -8,4 +8,5 @@ services:
       - /Appbox-Data/Media/Downloads:/output:rw
 
 volumes:
-  jdownloader2-config: null
+  jdownloader2-config:
+    name: "jdownloader2-config"

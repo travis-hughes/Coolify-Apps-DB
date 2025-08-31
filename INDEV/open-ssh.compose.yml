@@ -18,4 +18,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  openssh-config: null
+  openssh-config:
+    name: "openssh-config"

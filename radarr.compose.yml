@@ -13,4 +13,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  radarr-config: null
+  radarr-config:
+    name: "radarr-config"

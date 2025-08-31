@@ -13,4 +13,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  sonarr-config: null
+  sonarr-config:
+    name: "sonarr-config"

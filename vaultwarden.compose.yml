@@ -15,4 +15,5 @@ services:
       - 'vaultwarden-data:/data'
 
 volumes:
-  vaultwarden-data: null
+  vaultwarden-data:
+    name: "vaultwarden-data"

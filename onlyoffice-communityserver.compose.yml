@@ -99,9 +99,15 @@ services:
     tty: true
 
 volumes:
-  community-data: null
-  community-letsencrypt: null
-  community-certs: null
-  controlpanel-data: null
-  mysql-data: null
-  es-data: null
+  community-data:
+    name: "onlyoffice-community-data"
+  community-letsencrypt:
+    name: "onlyoffice-community-letsencrypt"
+  community-certs:
+    name: "onlyoffice-community-certs"
+  controlpanel-data:
+    name: "onlyoffice-controlpanel-data"
+  mysql-data:
+    name: "onlyoffice-mysql-server"
+  es-data:
+    name: "onlyoffice-es-data"

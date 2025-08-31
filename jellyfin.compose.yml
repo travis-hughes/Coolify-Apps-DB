@@ -11,4 +11,5 @@ services:
       - '/Appbox-Data/Media:/data:rw'
 
 volumes:
-  jellyfin-config: null
+  jellyfin-config:
+    name: "jellyfin-config"

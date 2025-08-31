@@ -10,5 +10,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  filebrowser-db: null
-  filebrowser-config: null
+  filebrowser-db:
+    name: "filebrowser-db"
+  filebrowser-config:
+    name: "filebrowser-config"

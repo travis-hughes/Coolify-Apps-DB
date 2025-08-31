@@ -39,7 +39,9 @@ services:
 
 
 volumes:
-  mail-data: null
-  mail-certs: null
-  mail-log: null
-  mysql-data: null
+  mail-data:
+    name: "onlyoffice-mailserver-data"
+  mail-certs:
+    name: "onlyoffice-mailserver-certs"
+  mysql-data:
+    name: "onlyoffice-mailserver-mysql-data"

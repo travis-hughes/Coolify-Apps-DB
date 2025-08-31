@@ -11,7 +11,11 @@ services:
       - DOCKER_ENABLE_SECURITY=false
 
 volumes:
-  stirling-training-data: null
-  stirling-configs: null
-  stirling-custom-files: null
-  stirling-logs: null
+  stirling-training-data: 
+    name: "stirling-training-data"
+  stirling-configs:
+    name: "stirling-configs"
+  stirling-custom-files:
+    name: "stirling-custom-files"
+  stirling-logs:
+    name: "stirling-logs"
