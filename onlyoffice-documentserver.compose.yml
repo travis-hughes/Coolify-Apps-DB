@@ -11,15 +11,14 @@ services:
      - JWT_SECRET=$SERVICE_BASE64_DOCUMENTSERVER
      - JWT_HEADER=AuthorizationJwt
     expose:
-      - '80'
-      - '443'
+     - '80'
+     - '443'
     volumes:
-       - document-data:/var/www/onlyoffice/Data
-       - document-log:/var/log/onlyoffice
-       - document-forgotten:/var/lib/onlyoffice/documentserver/App_Data/cache/files/forgotten
-       - /Appbox-Data/Media/Fonts:/usr/share/fonts/truetype/custom
+     - document-data:/var/www/onlyoffice/Data
+     - document-forgotten:/var/lib/onlyoffice/documentserver/App_Data/cache/files/forgotten
+     - /var/log/onlyoffice:/var/log/onlyoffice:rw
+     - /Appbox-Data/Media/Fonts:/usr/share/fonts/truetype/custom
 
 volumes:
   document-data: null
-  document-log: null
   document-forgotten: null
