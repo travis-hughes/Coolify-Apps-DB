@@ -16,7 +16,7 @@ services:
     image: onlyoffice/mailserver:1.6.75
     depends_on:
       - mysql
-    hostname: ${SERVICE_FQDN_MAILSERVER_8081}
+    hostname: ${SERVICE_FQDN_MAILSERVER}
     environment:
       - SERVICE_FQDN_MAILSERVER_8081
       - MYSQL_SERVER=onlyoffice-mail-mysql-server
@@ -30,12 +30,12 @@ services:
     stdin_open: true
     tty: true
     expose:
-     - '8081'
-     - '3306'
+      - '8081'
+      - '3306'
     volumes:
-     - mail-data:/var/vmail
-     - mail-certs:/etc/pki/tls/mailserver
-     - mail-log:/var/log
+      - mail-data:/var/vmail
+      - mail-certs:/etc/pki/tls/mailserver
+      - mail-log:/var/log
 
 
 volumes:

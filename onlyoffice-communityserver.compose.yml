@@ -14,8 +14,8 @@ services:
     container_name: onlyoffice-community-server
     image: onlyoffice/communityserver:12.6.0.1900
     depends_on:
-     - mysql
-     - onlyoffice-elasticsearch
+      - mysql
+      - onlyoffice-elasticsearch
     environment:
       - SERVICE_FQDN_COMMUNITYSERVER_80
       - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREKEY
