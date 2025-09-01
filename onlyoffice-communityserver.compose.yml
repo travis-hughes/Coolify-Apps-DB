@@ -3,7 +3,9 @@ services:
     container_name: onlyoffice-mysql-server
     image: mysql:8.0.29
     environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
+      - MYSQL_USER=${SERVICE_USER_MYSQL}
+      - MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}
     stdin_open: true
     tty: true
     restart: always
