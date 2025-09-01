@@ -16,6 +16,7 @@ services:
       - mysql-data:/var/lib/mysql
 
   onlyoffice-community-server:
+    hostname: onlyoffice-community-server
     container_name: onlyoffice-community-server
     image: onlyoffice/communityserver:12.6.0.1900
     depends_on:
@@ -26,9 +27,9 @@ services:
       - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREKEY
       - CONTROL_PANEL_PORT_80_TCP=80
       - CONTROL_PANEL_PORT_80_TCP_ADDR=onlyoffice-control-panel
-      - DOCUMENT_SERVER_PORT_80_TCP_ADDR=${DOCUMENT_SERVER_ADDRESS}
+      - DOCUMENT_SERVER_PORT_80_TCP_ADDR=onlyoffice-document-server
       - DOCUMENT_SERVER_JWT_ENABLED=true
-      - DOCUMENT_SERVER_JWT_SECRET=${DOCUMENT_SERVER_SECRET}
+      - DOCUMENT_SERVER_JWT_SECRET=$SERVICE_BASE64_DOCUMENTSERVER
       - DOCUMENT_SERVER_JWT_HEADER=AuthorizationJwt
       - MYSQL_SERVER_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
       - MYSQL_SERVER_DB_NAME=onlyoffice
@@ -62,7 +63,29 @@ services:
       - /var/log/onlyoffice:/var/log/onlyoffice:rw
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 
+  onlyoffice-document-server:
+    hostname: onlyoffice-document-server
+    container_name: onlyoffice-document-server
+    image: onlyoffice/documentserver:8.1
+    stdin_open: true
+    tty: true
+    restart: always
+    environment:
+     - SERVICE_FQDN_DOCUMENTSERVER_80
+     - JWT_ENABLED=true
+     - JWT_SECRET=$SERVICE_BASE64_DOCUMENTSERVER
+     - JWT_HEADER=AuthorizationJwt
+    expose:
+     - '80'
+     - '443'
+    volumes:
+     - document-data:/var/www/onlyoffice/Data
+     - document-forgotten:/var/lib/onlyoffice/documentserver/App_Data/cache/files/forgotten
+     - /var/log/onlyoffice:/var/log/onlyoffice:rw
+     - /Appbox-Data/Media/Fonts:/usr/share/fonts/truetype/custom
+
   onlyoffice-elasticsearch:
+    hostname: onlyoffice-elasticsearch
     image: onlyoffice/elasticsearch:7.16.3
     container_name: onlyoffice-elasticsearch
     restart: always
@@ -87,6 +110,7 @@ services:
       - "9300"
 
   onlyoffice-control-panel:
+    hostname: onlyoffice-control-panel
     container_name: onlyoffice-control-panel
     depends_on:
       - onlyoffice-community-server
@@ -117,3 +141,7 @@ volumes:
     name: "onlyoffice-mysql-server"
   es-data:
     name: "onlyoffice-es-data"
+  document-data:
+    name: "onlyoffice-document-data"
+  document-forgotten:
+    name: "onlyoffice-document-forgotten"
