@@ -45,9 +45,10 @@ services:
       - ELASTICSEARCH_SERVER_HOST=onlyoffice-elasticsearch
       - ELASTICSEARCH_SERVER_HTTPPORT=9200
     ports:
-    #  - '80:80'
-    #  - '443:443'
       - '5222:5222'
+    expose:
+      - '80'
+      - '443'
     stdin_open: true
     tty: true
     restart: always
