@@ -20,7 +20,5 @@ services:
      - /Appbox-Data/Media/Fonts:/usr/share/fonts/truetype/custom
 
 volumes:
-  document-data:
-    name: "onlyoffice-document-data"
-  document-forgotten:
-    name: "onlyoffice-document-forgotten"
+  document-data: null
+  document-forgotten: null

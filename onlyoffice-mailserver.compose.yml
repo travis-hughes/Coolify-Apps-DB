@@ -37,6 +37,32 @@ services:
       - mail-certs:/etc/pki/tls/mailserver
       - mail-log:/var/log
 
+  onlyoffice-mail-server:
+    container_name: onlyoffice-mail-server
+    image: onlyoffice/mailserver:1.6.75
+    depends_on:
+      - mysql
+    hostname: onlyoffice-mail-server
+    environment:
+      - SERVICE_FQDN_MAILSERVER_8081
+      - MYSQL_SERVER=onlyoffice-mysql-server
+      - MYSQL_SERVER_PORT=3306
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWD=$SERVICE_PASSWORD_MYSQLROOT
+      - MYSQL_SERVER_DB_NAME=onlyoffice_mailserver
+    restart: always
+    privileged: true
+    ports: ['25:25','143:143','587:587']
+    stdin_open: true
+    tty: true
+    expose:
+      - '8081'
+      - '3306'
+    volumes:
+      - mail-data:/var/vmail
+      - mail-certs:/etc/pki/tls/mailserver
+      - mail-log:/var/log
+
 
 volumes:
   mail-data:
