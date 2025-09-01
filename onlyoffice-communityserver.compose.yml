@@ -1,9 +1,9 @@
 services:
   mysql:
+    hostname: onlyoffice-mysql-server
     container_name: onlyoffice-mysql-server
     image: mysql:8.0.29
     environment:
-      - SERVICE_FQDN_ONLYOFFICEDB
       - MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
       - MYSQL_USER=${SERVICE_USER_MYSQL}
       - MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}
@@ -32,7 +32,7 @@ services:
       - DOCUMENT_SERVER_JWT_HEADER=AuthorizationJwt
       - MYSQL_SERVER_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
       - MYSQL_SERVER_DB_NAME=onlyoffice
-      - MYSQL_SERVER_HOST=$SERVICE_FQDN_ONLYOFFICEDB
+      - MYSQL_SERVER_HOST=onlyoffice-mysql-server
       - MYSQL_SERVER_USER=${SERVICE_USER_MYSQL}
       - MYSQL_SERVER_PASS=${SERVICE_PASSWORD_MYSQL}
         # - MAIL_SERVER_API_PORT=80
