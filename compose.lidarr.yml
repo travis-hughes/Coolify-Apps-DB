@@ -2,7 +2,7 @@ services:
   lidarr:
     image: 'lscr.io/linuxserver/lidarr:latest'
     environment:
-      - SERVICE_FQDN_LIDARR_8686
+      - SERVICE_FQDN_LIDARR_80
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London

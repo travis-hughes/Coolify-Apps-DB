@@ -2,7 +2,7 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:latest
     environment:
-      - SERVICE_FQDN_JELLYFIN_8096
+      - SERVICE_FQDN_JELLYFIN_80
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London

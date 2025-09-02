@@ -2,7 +2,7 @@ services:
   sonarr:
     image: linuxserver/sonarr:latest
     environment:
-      - SERVICE_FQDN_SONARR_8989
+      - SERVICE_FQDN_SONARR_80
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
