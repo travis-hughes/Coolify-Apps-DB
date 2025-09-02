@@ -16,10 +16,8 @@ services:
 
   onlyoffice-community-server:
     hostname: onlyoffice-community-server
+    container_name: onlyoffice-community-server
     image: onlyoffice/communityserver:12.6.0.1900
-    depends_on:
-      - mysql
-      - onlyoffice-elasticsearch
     environment:
       - SERVICE_FQDN_COMMUNITYSERVER_80
       - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREKEY
@@ -39,8 +37,8 @@ services:
       # - MAIL_SERVER_DB_HOST=onlyoffice-mysql-server
       # - MAIL_SERVER_DB_PORT=3306
       # - MAIL_SERVER_DB_NAME=onlyoffice_mailserver
-      # - MAIL_SERVER_DB_USER=root
-      # - MAIL_SERVER_DB_PASS=$SERVICE_PASSWORD_MYSQLROOT
+      # - MAIL_SERVER_DB_USER=${SERVICE_USER_MYSQL}
+      # - MAIL_SERVER_DB_PASS=${SERVICE_PASSWORD_MYSQL}
       - ELASTICSEARCH_SERVER_HOST=onlyoffice-elasticsearch
       - ELASTICSEARCH_SERVER_HTTPPORT=9200
     ports:
@@ -68,6 +66,7 @@ services:
     tty: true
     restart: always
     environment:
+      - SERVICE_FQDN_DOCUMENTSERVER_80
       - JWT_ENABLED=true
       - JWT_SECRET=$SERVICE_BASE64_DOCUMENTSERVER
       - JWT_HEADER=AuthorizationJwt
@@ -106,8 +105,6 @@ services:
 
   onlyoffice-control-panel:
     hostname: onlyoffice-control-panel
-    depends_on:
-      - onlyoffice-community-server
     image: onlyoffice/controlpanel:3.5.2.530
     environment:
       - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREKEY
@@ -121,28 +118,6 @@ services:
       - /var/log/onlyoffice:/var/log/onlyoffice
     stdin_open: true
     tty: true
-
-  # onlyoffice-mail-server:
-  #   image: onlyoffice/mailserver:1.6.75
-  #   hostname: onlyoffice-mail-server
-  #   environment:
-  #     - MYSQL_SERVER=onlyoffice-mysql-server
-  #     - MYSQL_SERVER_PORT=3306
-  #     - MYSQL_ROOT_USER=root
-  #     - MYSQL_ROOT_PASSWD=$SERVICE_PASSWORD_MYSQLROOT
-  #     - MYSQL_SERVER_DB_NAME=onlyoffice_mailserver
-  #   restart: always
-  #   privileged: true
-  #   ports: ['25:25','143:143','587:587']
-  #   stdin_open: true
-  #   tty: true
-  #   expose:
-  #     - '8081'
-  #     - '3306'
-  #   volumes:
-  #     - mail-data:/var/vmail
-  #     - mail-certs:/etc/pki/tls/mailserver
-  #     - mail-log:/var/log
 
 volumes:
   community-data:
@@ -162,5 +137,8 @@ volumes:
   document-forgotten:
     name: "onlyoffice-document-forgotten"
   mail-data:
+    name: "onlyoffice-mailserver-data"
   mail-certs:
+    name: "onlyoffice-mailserver-certs"
   mysql-data:
+    name: "onlyoffice-mailserver-mysql-data"
