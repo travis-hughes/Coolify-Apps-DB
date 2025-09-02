@@ -168,8 +168,5 @@ volumes:
   document-forgotten:
     name: "onlyoffice-document-forgotten"
   mail-data:
-    name: "onlyoffice-mailserver-data"
   mail-certs:
-    name: "onlyoffice-mailserver-certs"
   mysql-data:
-    name: "onlyoffice-mailserver-mysql-data"
