@@ -4,7 +4,7 @@ services:
     image: iredmail/mariadb:stable
     hostname: $SERVICE_FQDN_IREDMAIL
     environment:
-      - SERVICE_FQDN_IREDMAIL
+      - SERVICE_FQDN_IREDMAIL_80
       - SERVICE_FQDN_IREDMAIL_MAILDOMAIN
       - HOSTNAME=$SERVICE_FQDN_IREDMAIL
       - FIRST_MAIL_DOMAIN=$SERVICE_FQDN_IREDMAIL_MAILDOMAIN
