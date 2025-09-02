@@ -36,13 +36,13 @@ services:
       - MYSQL_SERVER_HOST=onlyoffice-mysql-server
       - MYSQL_SERVER_USER=${SERVICE_USER_MYSQL}
       - MYSQL_SERVER_PASS=${SERVICE_PASSWORD_MYSQL}
-      # - MAIL_SERVER_API_PORT=80
-      # - MAIL_SERVER_API_HOST=onlyoffice-mail-server
-      # - MAIL_SERVER_DB_HOST=onlyoffice-mysql-server
-      # - MAIL_SERVER_DB_PORT=3306
-      # - MAIL_SERVER_DB_NAME=onlyoffice_mailserver
-      # - MAIL_SERVER_DB_USER=${SERVICE_USER_MYSQL}
-      # - MAIL_SERVER_DB_PASS=${SERVICE_PASSWORD_MYSQL}
+      - MAIL_SERVER_API_PORT=80
+      - MAIL_SERVER_API_HOST=onlyoffice-mail-server
+      - MAIL_SERVER_DB_HOST=onlyoffice-mysql-server
+      - MAIL_SERVER_DB_PORT=3306
+      - MAIL_SERVER_DB_NAME=onlyoffice_mailserver
+      - MAIL_SERVER_DB_USER=${SERVICE_USER_MYSQL}
+      - MAIL_SERVER_DB_PASS=${SERVICE_PASSWORD_MYSQL}
       - ELASTICSEARCH_SERVER_HOST=onlyoffice-elasticsearch
       - ELASTICSEARCH_SERVER_HTTPPORT=9200
     ports:
@@ -127,30 +127,30 @@ services:
     stdin_open: true
     tty: true
 
-  # onlyoffice-mail-server:
-  #   container_name: onlyoffice-mail-server
-  #   image: onlyoffice/mailserver:1.6.75
-  #   depends_on:
-  #     - mysql
-  #   hostname: onlyoffice-mail-server
-  #   environment:
-  #     - MYSQL_SERVER=onlyoffice-mysql-server
-  #     - MYSQL_SERVER_PORT=3306
-  #     - MYSQL_ROOT_USER=root
-  #     - MYSQL_ROOT_PASSWD=$SERVICE_PASSWORD_MYSQLROOT
-  #     - MYSQL_SERVER_DB_NAME=onlyoffice_mailserver
-  #   restart: always
-  #   privileged: true
-  #   ports: ['25:25','143:143','587:587']
-  #   stdin_open: true
-  #   tty: true
-  #   expose:
-  #     - '8081'
-  #     - '3306'
-  #   volumes:
-  #     - mail-data:/var/vmail
-  #     - mail-certs:/etc/pki/tls/mailserver
-  #     - mail-log:/var/log
+  onlyoffice-mail-server:
+    container_name: onlyoffice-mail-server
+    image: onlyoffice/mailserver:1.6.75
+    depends_on:
+      - mysql
+    hostname: onlyoffice-mail-server
+    environment:
+      - MYSQL_SERVER=onlyoffice-mysql-server
+      - MYSQL_SERVER_PORT=3306
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWD=$SERVICE_PASSWORD_MYSQLROOT
+      - MYSQL_SERVER_DB_NAME=onlyoffice_mailserver
+    restart: always
+    privileged: true
+    ports: ['25:25','143:143','587:587']
+    stdin_open: true
+    tty: true
+    expose:
+      - '8081'
+      - '3306'
+    volumes:
+      - mail-data:/var/vmail
+      - mail-certs:/etc/pki/tls/mailserver
+      - mail-log:/var/log
 
 volumes:
   community-data:
@@ -169,9 +169,9 @@ volumes:
     name: "onlyoffice-document-data"
   document-forgotten:
     name: "onlyoffice-document-forgotten"
-  # mail-data:
-  #   name: "onlyoffice-mailserver-data"
-  # mail-certs:
-  #   name: "onlyoffice-mailserver-certs"
-  # mysql-data:
-  #   name: "onlyoffice-mailserver-mysql-data"
+  mail-data:
+    name: "onlyoffice-mailserver-data"
+  mail-certs:
+    name: "onlyoffice-mailserver-certs"
+  mysql-data:
+    name: "onlyoffice-mailserver-mysql-data"
