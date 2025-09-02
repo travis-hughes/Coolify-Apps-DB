@@ -1,6 +1,6 @@
 include:
-  - ./onlyoffice-documentserver.compose.yml
-  - ./onlyoffice-mailserver.compose.yml
+  - onlyoffice-documentserver.compose.yml
+  - onlyoffice-mailserver.compose.yml
 
 services:
   mysql:
