@@ -27,10 +27,10 @@ services:
       - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREKEY
       - CONTROL_PANEL_PORT_80_TCP=80
       - CONTROL_PANEL_PORT_80_TCP_ADDR=onlyoffice-control-panel
-      - DOCUMENT_SERVER_PORT_80_TCP_ADDR=onlyoffice-document-server
-      - DOCUMENT_SERVER_JWT_ENABLED=true
-      - DOCUMENT_SERVER_JWT_SECRET=$SERVICE_BASE64_DOCUMENTSERVER
-      - DOCUMENT_SERVER_JWT_HEADER=AuthorizationJwt
+      # - DOCUMENT_SERVER_PORT_80_TCP_ADDR=onlyoffice-document-server
+      # - DOCUMENT_SERVER_JWT_ENABLED=true
+      # - DOCUMENT_SERVER_JWT_SECRET=$SERVICE_BASE64_DOCUMENTSERVER
+      # - DOCUMENT_SERVER_JWT_HEADER=AuthorizationJwt
       - MYSQL_SERVER_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
       - MYSQL_SERVER_DB_NAME=onlyoffice
       - MYSQL_SERVER_HOST=onlyoffice-mysql-server
@@ -165,13 +165,13 @@ volumes:
     name: "onlyoffice-mysql-server"
   es-data:
     name: "onlyoffice-es-data"
-  document-data:
-    name: "onlyoffice-document-data"
-  document-forgotten:
-    name: "onlyoffice-document-forgotten"
-  mail-data:
-    name: "onlyoffice-mailserver-data"
-  mail-certs:
-    name: "onlyoffice-mailserver-certs"
-  mysql-data:
-    name: "onlyoffice-mailserver-mysql-data"
+  # document-data:
+  #   name: "onlyoffice-document-data"
+  # document-forgotten:
+  #   name: "onlyoffice-document-forgotten"
+  # mail-data:
+  #   name: "onlyoffice-mailserver-data"
+  # mail-certs:
+  #   name: "onlyoffice-mailserver-certs"
+  # mysql-data:
+  #   name: "onlyoffice-mailserver-mysql-data"
