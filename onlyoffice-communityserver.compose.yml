@@ -130,8 +130,6 @@ services:
   onlyoffice-mail-server:
     container_name: onlyoffice-mail-server
     image: onlyoffice/mailserver:1.6.75
-    depends_on:
-      - mysql
     hostname: onlyoffice-mail-server
     environment:
       - MYSQL_SERVER=onlyoffice-mysql-server
