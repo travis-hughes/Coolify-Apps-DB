@@ -1,3 +1,5 @@
+# ADD BASE64 key FOR JWT TOKEN
+
 services:
   onlyoffice-mysql-server:
     hostname: onlyoffice-mysql-server
