@@ -65,7 +65,7 @@ services:
      - community_letsencrypt:/etc/letsencrypt
      - document_data:/var/www/onlyoffice/DocumentServerData
      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-     - ./certs:/var/www/onlyoffice/Data/certs
+     - community_certs:/var/www/onlyoffice/Data/certs
   onlyoffice-elasticsearch:
     image: onlyoffice/elasticsearch:7.16.3
     container_name: onlyoffice-elasticsearch
@@ -177,3 +177,4 @@ volumes:
   controlpanel_log:
   mysql_data:
   es_data:
+  community_certs:
