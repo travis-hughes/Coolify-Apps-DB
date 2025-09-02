@@ -3,7 +3,9 @@ services:
     container_name: onlyoffice-mysql-server
     image: mysql:8.0.29
     environment:
-     - MYSQL_ROOT_PASSWORD=my-secret-pw
+     - MYSQL_ROOT_PASSWORD=$SERVICE_PASSWORD_MSQLROOT
+     - MYSQL_USER=onlyoffice_user
+     - MYSQL_USER_PASSWORD=$SERVICE_PASSWORD_MSQL
     networks:
      - onlyoffice
     stdin_open: true
@@ -11,7 +13,7 @@ services:
     restart: always
     volumes:
      - ./config/mysql/conf.d:/etc/mysql/conf.d
-     - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    #  - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
      - mysql_data:/var/lib/mysql
   onlyoffice-community-server:
     container_name: onlyoffice-community-server
@@ -22,18 +24,18 @@ services:
      - onlyoffice-mail-server
      - onlyoffice-elasticsearch
     environment:
-     - ONLYOFFICE_CORE_MACHINEKEY=core_secret
+     - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREMACHINEKEY
      - CONTROL_PANEL_PORT_80_TCP=80
      - CONTROL_PANEL_PORT_80_TCP_ADDR=onlyoffice-control-panel
      - DOCUMENT_SERVER_PORT_80_TCP_ADDR=onlyoffice-document-server
      - DOCUMENT_SERVER_JWT_ENABLED=true
      - DOCUMENT_SERVER_JWT_SECRET=jwt_secret
      - DOCUMENT_SERVER_JWT_HEADER=AuthorizationJwt
-     - MYSQL_SERVER_ROOT_PASSWORD=my-secret-pw
+     - MYSQL_SERVER_ROOT_PASSWORD=$SERVICE_PASSWORD_MSQLROOT
      - MYSQL_SERVER_DB_NAME=onlyoffice
      - MYSQL_SERVER_HOST=onlyoffice-mysql-server
      - MYSQL_SERVER_USER=onlyoffice_user
-     - MYSQL_SERVER_PASS=onlyoffice_pass
+     - MYSQL_SERVER_PASS=$SERVICE_PASSWORD_MSQL
      - MAIL_SERVER_API_PORT=8081
      - MAIL_SERVER_API_HOST=onlyoffice-mail-server
      - MAIL_SERVER_DB_HOST=onlyoffice-mysql-server
@@ -46,8 +48,8 @@ services:
     networks:
      - onlyoffice
     ports:
-     - '80:80'
-     - '443:443'
+    #  - '80:80'
+    #  - '443:443'
      - '5222:5222'
     stdin_open: true
     tty: true
@@ -104,7 +106,7 @@ services:
     volumes:
        - document_data:/var/www/onlyoffice/Data
        - document_log:/var/log/onlyoffice
-       - ./document_fonts:/usr/share/fonts/truetype/custom
+      #  - ./document_fonts:/usr/share/fonts/truetype/custom
        - document_forgotten:/var/lib/onlyoffice/documentserver/App_Data/cache/files/forgotten
   onlyoffice-mail-server:
     container_name: onlyoffice-mail-server
@@ -115,8 +117,8 @@ services:
     environment:
        - MYSQL_SERVER=onlyoffice-mysql-server
        - MYSQL_SERVER_PORT=3306
-       - MYSQL_ROOT_USER=mail_admin
-       - MYSQL_ROOT_PASSWD=Isadmin123
+       - MYSQL_ROOT_USER=root
+       - MYSQL_ROOT_PASSWD=$SERVICE_PASSWORD_MSQLROOT
        - MYSQL_SERVER_DB_NAME=onlyoffice_mailserver
     networks:
       - onlyoffice
@@ -140,7 +142,7 @@ services:
      - onlyoffice-community-server
     image: onlyoffice/controlpanel:3.5.2.530
     environment:
-     - ONLYOFFICE_CORE_MACHINEKEY=core_secret
+     - ONLYOFFICE_CORE_MACHINEKEY=$SERVICE_BASE64_COREMACHINEKEY
     expose:
       - '80'
       - '443'
