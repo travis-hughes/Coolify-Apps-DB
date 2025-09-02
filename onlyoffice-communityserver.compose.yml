@@ -1,7 +1,3 @@
-include:
-  - onlyoffice-documentserver.compose.yml
-  - onlyoffice-mailserver.compose.yml
-
 services:
   mysql:
     hostname: onlyoffice-mysql-server
@@ -67,6 +63,26 @@ services:
       - /var/log/onlyoffice:/var/log/onlyoffice:rw
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 
+  onlyoffice-document-server:
+    hostname: onlyoffice-document-server
+    container_name: onlyoffice-document-server
+    image: onlyoffice/documentserver:8.1
+    stdin_open: true
+    tty: true
+    restart: always
+    environment:
+      - JWT_ENABLED=true
+      - JWT_SECRET=$SERVICE_BASE64_DOCUMENTSERVER
+      - JWT_HEADER=AuthorizationJwt
+    expose:
+      - '80'
+      - '443'
+    volumes:
+      - document-data:/var/www/onlyoffice/Data
+      - document-forgotten:/var/lib/onlyoffice/documentserver/App_Data/cache/files/forgotten
+      - /var/log/onlyoffice:/var/log/onlyoffice:rw
+      - /Appbox-Data/Media/Fonts:/usr/share/fonts/truetype/custom
+
   onlyoffice-elasticsearch:
     hostname: onlyoffice-elasticsearch
     image: onlyoffice/elasticsearch:7.16.3
@@ -111,6 +127,31 @@ services:
     stdin_open: true
     tty: true
 
+  onlyoffice-mail-server:
+    container_name: onlyoffice-mail-server
+    image: onlyoffice/mailserver:1.6.75
+    depends_on:
+      - mysql
+    hostname: onlyoffice-mail-server
+    environment:
+      - MYSQL_SERVER=onlyoffice-mysql-server
+      - MYSQL_SERVER_PORT=3306
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWD=$SERVICE_PASSWORD_MYSQLROOT
+      - MYSQL_SERVER_DB_NAME=onlyoffice_mailserver
+    restart: always
+    privileged: true
+    ports: ['25:25','143:143','587:587']
+    stdin_open: true
+    tty: true
+    expose:
+      - '8081'
+      - '3306'
+    volumes:
+      - mail-data:/var/vmail
+      - mail-certs:/etc/pki/tls/mailserver
+      - mail-log:/var/log
+
 volumes:
   community-data:
     name: "onlyoffice-community-data"
@@ -124,3 +165,13 @@ volumes:
     name: "onlyoffice-mysql-server"
   es-data:
     name: "onlyoffice-es-data"
+  document-data:
+    name: "onlyoffice-document-data"
+  document-forgotten:
+    name: "onlyoffice-document-forgotten"
+  mail-data:
+    name: "onlyoffice-mailserver-data"
+  mail-certs:
+    name: "onlyoffice-mailserver-certs"
+  mysql-data:
+    name: "onlyoffice-mailserver-mysql-data"
