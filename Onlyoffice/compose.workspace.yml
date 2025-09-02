@@ -42,7 +42,7 @@ services:
      - MYSQL_SERVER_USER=onlyoffice_user
      - MYSQL_SERVER_PASS=$SERVICE_BASE64_MSQL
      - MAIL_SERVER_API_PORT=8081
-     - MAIL_SERVER_API_HOST=onlyoffice-mail-server
+     - MAIL_SERVER_API_HOST=$SERVICE_FQDN_ONLYOFFICE_MAIL_SERVER
      - MAIL_SERVER_DB_HOST=onlyoffice-mysql-server
      - MAIL_SERVER_DB_PORT=3306
      - MAIL_SERVER_DB_NAME=onlyoffice_mailserver
