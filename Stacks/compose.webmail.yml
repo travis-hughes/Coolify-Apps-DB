@@ -1,0 +1,5 @@
+services:
+  iredmail:
+    extends:
+      file: ../Apps/compose.iredmail.yml
+      service: iredmail
