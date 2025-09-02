@@ -1,5 +1,6 @@
 services:
   onlyoffice-mysql-server:
+    hostname: onlyoffice-mysql-server
     container_name: onlyoffice-mysql-server
     image: mysql:latest
     environment:
