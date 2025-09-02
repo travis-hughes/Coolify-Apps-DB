@@ -1,7 +1,7 @@
 services:
   onlyoffice-mysql-server:
     container_name: onlyoffice-mysql-server
-    image: mysql:8.0.29
+    image: mysql:latest
     environment:
      - MYSQL_ROOT_PASSWORD=$SERVICE_BASE64_MSQLROOT
      - MYSQL_USER=onlyoffice_user
