@@ -14,7 +14,7 @@ services:
     restart: always
     volumes:
      - ./config/mysql/conf.d:/etc/mysql/conf.d
-    #  - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+     - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
      - mysql_data:/var/lib/mysql
   onlyoffice-community-server:
     container_name: onlyoffice-community-server
