@@ -1,7 +1,6 @@
 services:
   mysql:
     hostname: onlyoffice-mysql-server
-    container_name: onlyoffice-mysql-server
     image: mysql:8.0.29
     environment:
       - MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
@@ -17,7 +16,6 @@ services:
 
   onlyoffice-community-server:
     hostname: onlyoffice-community-server
-    container_name: onlyoffice-community-server
     image: onlyoffice/communityserver:12.6.0.1900
     depends_on:
       - mysql
@@ -65,7 +63,6 @@ services:
 
   onlyoffice-document-server:
     hostname: onlyoffice-document-server
-    container_name: onlyoffice-document-server
     image: onlyoffice/documentserver:8.1
     stdin_open: true
     tty: true
@@ -86,7 +83,6 @@ services:
   onlyoffice-elasticsearch:
     hostname: onlyoffice-elasticsearch
     image: onlyoffice/elasticsearch:7.16.3
-    container_name: onlyoffice-elasticsearch
     restart: always
     environment:
       - discovery.type=single-node
@@ -110,7 +106,6 @@ services:
 
   onlyoffice-control-panel:
     hostname: onlyoffice-control-panel
-    container_name: onlyoffice-control-panel
     depends_on:
       - onlyoffice-community-server
     image: onlyoffice/controlpanel:3.5.2.530
@@ -128,7 +123,6 @@ services:
     tty: true
 
   onlyoffice-mail-server:
-    container_name: onlyoffice-mail-server
     image: onlyoffice/mailserver:1.6.75
     hostname: onlyoffice-mail-server
     environment:
