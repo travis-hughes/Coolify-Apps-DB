@@ -2,7 +2,7 @@ services:
   iredmail:
     container_name: iredmail
     image: iredmail/mariadb:stable
-    hostname: $SERVICE_FQDN_IREDMAIL
+    hostname: $SERVICE_FQDN_IREDMAIL_80
     environment:
       - SERVICE_FQDN_IREDMAIL_80
       - HOSTNAME=$SERVICE_FQDN_IREDMAIL
