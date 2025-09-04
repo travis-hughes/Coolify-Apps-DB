@@ -20,6 +20,9 @@ services:
       retries: 10
 
 volumes:
-  homarr-configs: null
-  homarr-icons: null
-  homarr-data: null
+  homarr-configs:
+    name: "homarr-configs"
+  homarr-icons:
+    name: "homarr-icons"
+  homarr-data:
+    name: "homarr-data"
