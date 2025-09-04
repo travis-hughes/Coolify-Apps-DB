@@ -22,4 +22,5 @@ services:
       retries: 10
 
 volumes:
-  syncthing-config: null
+  syncthing-config:
+    name: "stirling-training-data"

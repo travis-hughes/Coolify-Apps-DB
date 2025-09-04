@@ -5,9 +5,8 @@ services:
       - '1025:1025'
     volumes:
       - 'mailpit-data:/data'
-      -
-        type: bind
-        source: /Appbox-Data/Configs/htpasswd
+      - type: bind
+        source: /Appbox-Data/Configs/mailpit-htpasswd
         target: /data/htpasswd
         isDirectory: false
         content: ''
@@ -26,3 +25,7 @@ services:
       interval: 5s
       timeout: 20s
       retries: 10
+
+volumes:
+  mailpit-data:
+    name: "mailpit-data"
