@@ -1,5 +1,3 @@
-# ADD BASE64 key FOR JWT TOKEN
-
 services:
   onlyoffice-mysql-server:
     hostname: onlyoffice-mysql-server
@@ -7,6 +5,9 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     image: mysql:8.0.29
     environment:
+      - ONLYOFFICE_DB_ROOT_USER=$SERVICE_PASSWORD_DBROOTUSER
+      - ONLYOFFICE_DB_USER=$SERVICE_PASSWORD_DBUSER
+      - ONLYOFFICE_DB_USER_MAIL=$SERVICE_PASSWORD_DBUSERMAIL
     #  - MYSQL_ROOT_PASSWORD=$SERVICE_BASE64_MSQLROOT
     #  - MYSQL_USER=onlyoffice_user
     #  - MYSQL_PASSWORD=$SERVICE_BASE64_MSQL
