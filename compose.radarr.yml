@@ -9,7 +9,7 @@ services:
     volumes:
       - radarr-config:/config
       - '/Appbox-Data/Media/Movies:/movies:rw'
-      - '/Appbox-Data/Downloads:/downloads:rw'
+      - '/Appbox-Data/Media/Downloads:/downloads:rw'
     restart: unless-stopped
 
 volumes:

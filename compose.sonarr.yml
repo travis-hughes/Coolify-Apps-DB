@@ -9,7 +9,7 @@ services:
     volumes:
       - sonarr-config:/config
       - '/Appbox-Data/Media/TV Shows:/tv:rw'
-      - '/Appbox-Data/Downloads:/downloads:rw'
+      - '/Appbox-Data/Media/Downloads:/downloads:rw'
     restart: unless-stopped
 
 volumes:

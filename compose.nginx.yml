@@ -1,0 +1,6 @@
+services:
+  nginx:
+    image: 'nginx:stable-alpine'
+    volumes:
+      - '/Appbox-Data/Web:/usr/share/nginx/html:ro'
+    restart: unless-stopped

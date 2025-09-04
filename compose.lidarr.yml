@@ -9,7 +9,7 @@ services:
     volumes:
       - lidarr-config:/config:rw
       - '/Appbox-Data/Media/Music:/music:rw'
-      - '/Appbox-Data/Downloads:/downloads:rw'
+      - '/Appbox-Data/Media/Downloads:/downloads:rw'
     restart: unless-stopped
 
 volumes:
