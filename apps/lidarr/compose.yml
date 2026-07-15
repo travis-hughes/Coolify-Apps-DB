@@ -1,0 +1,49 @@
+services:
+  lidarr:
+    container_name: lidarr
+    restart: unless-stopped
+    image: lscr.io/linuxserver/lidarr:latest
+    expose:
+      - 8686
+    networks:
+      - appbox-net
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - config:/config
+      - type: volume
+        source: media
+        target: /music
+        volume:
+          subpath: Music
+      - type: volume
+        source: media
+        target: /downloads
+        volume:
+          subpath: Downloads
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+    #   placement:
+    #     constraints:
+    #       - 'node.role == worker'
+    #   restart_policy:
+    #     condition: on-failure
+
+
+networks:
+  appbox-net:
+    name: appbox-net
+    external: true
+
+
+volumes:
+  config:
+    name: lidarr-config
+    external: false
+
+  media:
+    name: media
+    external: true

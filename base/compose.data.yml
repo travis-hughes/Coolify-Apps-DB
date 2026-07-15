@@ -1,0 +1,20 @@
+x-utils:
+  container-defaults:
+    &container-defaults
+    container_name: ${COMPOSE_PROJECT_NAME}
+    restart: unless-stopped
+    networks:
+      - appbox-net
+
+  linuxserver-envs:
+    &linuxserver-envs
+    - PUID=1000
+    - PGID=1000
+    - TZ=Europe/London
+
+  traefik-labels:
+    &traefik-labels
+    - "traefik.enable=true"
+    - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_PROJECT_NAME}.${DOMAIN_NAME}`)"
+    - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure"
+    - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=myresolver"

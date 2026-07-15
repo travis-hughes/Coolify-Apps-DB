@@ -1,0 +1,48 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    networks:
+      - appbox-net
+    expose:
+      - 8989
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - config:/config
+      - type: volume
+        source: media
+        target: /tv
+        volume:
+          subpath: TV-Shows
+      - type: volume
+        source: media
+        target: /downloads
+        volume:
+          subpath: Downloads
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+    #   placement:
+    #     constraints:
+    #       - 'node.role == worker'
+    #   restart_policy:
+    #     condition: on-failure
+
+
+networks:
+  appbox-net:
+    name: appbox-net
+    external: true
+
+volumes:
+  config:
+    name: sonarr-config
+    external: false
+
+  media:
+    name: media
+    external: true

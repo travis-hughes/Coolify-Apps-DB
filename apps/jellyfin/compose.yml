@@ -1,0 +1,41 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    user: 1000:1000
+    expose:
+      - 8096
+    networks:
+      - appbox-net
+    volumes:
+      - config:/config
+      - cache:/cache
+      - media:/media
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+    #   placement:
+    #     constraints:
+    #       - 'node.role == worker'
+    #   restart_policy:
+    #     condition: on-failure
+
+networks:
+  appbox-net:
+    name: appbox-net
+    external: true
+
+
+volumes:
+  config:
+    name: config
+    external: false
+
+  cache:
+    name: cache
+    external: false
+
+  media:
+    name: media
+    external: true

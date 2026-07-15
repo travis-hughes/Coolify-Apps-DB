@@ -1,0 +1,29 @@
+services:
+  gitea:
+    container_name: gitea
+    image: docker.gitea.com/gitea:1.25.5
+    restart: unless-stopped
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    networks:
+      - appbox-net
+    volumes:
+      - data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    expose:
+      - 3000
+    ports:
+      - 23:22
+
+volumes:
+  data:
+    name: gitea-data
+    external: false
+
+
+networks:
+  appbox-net:
+    name: appbox-net
+    external: true

@@ -1,0 +1,26 @@
+services:
+  windows:
+    container_name: windows-11
+    image: dockurr/windows:5.14
+    restart: unless-stopped
+    networks:
+      - appbox-net
+    environment:
+      VERSION: 11
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    expose:
+      - 8006
+      - 3389
+    volumes:
+      - windows:/storage
+    stop_grace_period: 2m
+
+
+volumes:
+  windows:
+    name: windows-11
+    external: false

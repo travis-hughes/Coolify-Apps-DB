@@ -1,0 +1,27 @@
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    networks:
+      - appbox-net
+    environment:
+      DOMAIN: ${VAULTWARDEN_DOMAIN}
+    volumes:
+      - data:/data/
+    expose:
+      - 80
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+    #   placement:
+    #     constraints:
+    #       - 'node.role == worker'
+    #   restart_policy:
+    #     condition: on-failure
+      
+
+volumes:
+  data:
+    name: data-vaultwarden
+    external: false

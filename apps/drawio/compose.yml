@@ -1,0 +1,13 @@
+services:
+  drawio:
+    <<: [*container-defaults]
+    image: jgraph/drawio
+    expose:
+      - 8080
+
+
+
+networks:
+  appbox-net:
+    name: "appbox-net"
+    external: true

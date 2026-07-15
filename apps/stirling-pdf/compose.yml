@@ -1,0 +1,32 @@
+services:
+  stirling-pdf:
+    container_name: stirling-pdf
+    image: stirlingtools/stirling-pdf:latest
+    restart: unless-stopped
+    environment:
+      - SECURITY_ENABLELOGIN: true
+    expose:
+      - 8080
+    networks:
+      - appbox-net
+    volumes:
+      - configs:/configs
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+    #   placement:
+    #     constraints:
+    #       - 'node.role == worker'
+    #   restart_policy:
+    #     condition: on-failure
+
+
+volumes:
+  configs:
+    name: configs-stirling-pdf
+    external: false
+
+networks:
+  appbox-net:
+    name: appbox-net
+    external: true

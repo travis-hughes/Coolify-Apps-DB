@@ -1,0 +1,28 @@
+services:
+  filebrowser:
+    container_name: filebrowser-quantum
+    image: gtstef/filebrowser:stable
+    restart: unless-stopped
+    networks:
+      - appbox-net
+    volumes:
+      - media:/folder
+      - data:/home/filebrowser/data
+    expose:
+      - 80
+
+
+networks:
+  appbox-net:
+    name: appbox-net
+    external: true
+
+
+volumes:
+  media:
+    name: media
+    external: true
+
+  data:
+    name: filebrowser-data
+    external: false

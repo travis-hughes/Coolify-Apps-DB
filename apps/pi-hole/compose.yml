@@ -1,0 +1,21 @@
+services:
+  pihole:
+    <<: [*container-defaults]
+    image: pihole/pihole:latest
+    expose:
+      - 53 # DNS
+      - 80 # Web
+      - 443 # Web
+      - 67 # DHCP Server
+      - 123 # NPT Servre
+    environment:
+      TZ: $TZ
+      FTLCONF_webserver_api_password: $PASSWORD
+      # If using Docker's default `bridge` network setting the dns listening mode should be set to 'ALL'
+      FTLCONF_dns_listeningMode: 'ALL'
+    volumes:
+      - pihole-etc:/etc/pihole
+    cap_add:
+      - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE
