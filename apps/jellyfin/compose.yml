@@ -1,13 +1,12 @@
 services:
   jellyfin:
     image: jellyfin/jellyfin:latest
-    container_name: jellyfin
     restart: unless-stopped
     user: 1000:1000
     expose:
       - 8096
     networks:
-      - appbox-net
+      - public
     volumes:
       - config:/config
       - cache:/cache
@@ -22,18 +21,18 @@ services:
     #     condition: on-failure
 
 networks:
-  appbox-net:
-    name: appbox-net
+  public:
+    name: public
     external: true
 
 
 volumes:
   config:
-    name: config
+    name: jellyfin-config
     external: false
 
   cache:
-    name: cache
+    name: jellyfin-cache
     external: false
 
   media:

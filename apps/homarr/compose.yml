@@ -1,6 +1,5 @@
 services:
   homarr:
-    container_name: homarr
     image: ghcr.io/homarr-labs/homarr:latest
     restart: unless-stopped
     volumes:
@@ -9,18 +8,18 @@ services:
     environment:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
     networks:
-      - appbox-net
+      - public
     expose:
       - 7575
 
 
 volumes:
   appdata:
-    name: appdata-homarr
+    name: homarr
     external: false
 
 
 networks:
-  appbox-net:
-    name: appbox-net
+  public:
+    name: public
     external: true

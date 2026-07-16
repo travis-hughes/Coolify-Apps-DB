@@ -1,10 +1,10 @@
 services:
   windows:
-    container_name: windows-11
     image: dockurr/windows:5.14
     restart: unless-stopped
+    stop_grace_period: 2m
     networks:
-      - appbox-net
+      - public
     environment:
       VERSION: 11
     devices:
@@ -17,10 +17,15 @@ services:
       - 3389
     volumes:
       - windows:/storage
-    stop_grace_period: 2m
 
 
 volumes:
   windows:
     name: windows-11
     external: false
+
+
+networks:
+  public:
+    name: public
+    external: true

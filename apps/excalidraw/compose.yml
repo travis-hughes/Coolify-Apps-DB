@@ -1,21 +1,14 @@
 services:
   excalidraw:
-    container_name: excalidraw
     restart: unless-stopped
     image: excalidraw/excalidraw:latest
     networks:
-      - appbox-net
+      - public
     expose:
       - 80
-    # deploy:
-    #   mode: replicated
-    #   replicas: 2
-    #   placement:
-    #     constraints:
-    #       - 'node.role == worker'
-    #   restart_policy:
-    #     condition: on-failure
+
 
 networks:
-  appbox-net:
+  public:
+    name: public
     external: true

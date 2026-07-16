@@ -1,12 +1,13 @@
 services:
   code-server:
-    container_name: vscode-server
     image: lscr.io/linuxserver/code-server:latest
     restart: unless-stopped
+    networks:
+      - public
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
+      - PUID={{environment.USER_ID}}
+      - PGID={{environment.GROUP_ID}}
+      - TZ={{environment.TZ}}
       - PASSWORD=${PASSWORD}
       - HASHED_PASSWORD=
       - SUDO_PASSWORD=${SUDO_PASSWORD}
@@ -19,4 +20,12 @@ services:
 
 
 volumes:
-  - vscode-server
+  config:
+    name: vscode-server
+    external: false
+
+
+networks:
+  public:
+    name: public
+    external: true
