@@ -1,0 +1,1 @@
+rm ./1-init.sql
