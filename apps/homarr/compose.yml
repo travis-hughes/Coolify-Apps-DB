@@ -6,6 +6,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - appdata:/appdata
     environment:
+      - SERVICE_FQDN_HOMARR_7575
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
     networks:
       - public

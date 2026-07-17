@@ -2,6 +2,8 @@ services:
   drawio:
     image: jgraph/drawio
     restart: unless-stopped
+    environment:
+      - SERVICE_URL_DRAWIO_80
     networks:
       - public
     expose:

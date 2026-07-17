@@ -9,10 +9,11 @@ services:
       - 67 # DHCP Server
       - 123 # NPT Servre
     environment:
-      TZ: $TZ
-      FTLCONF_webserver_api_password: $SERVICE_PASSWORD_PIHOLE
+      - SERVICE_FQDN_LIDARR_8686
+      - TZ=Europe/London
+      - FTLCONF_webserver_api_password: $SERVICE_PASSWORD_PIHOLE
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'ALL'
-      FTLCONF_dns_listeningMode: ALL
+      - FTLCONF_dns_listeningMode: ALL
     networks:
       - public
     volumes:

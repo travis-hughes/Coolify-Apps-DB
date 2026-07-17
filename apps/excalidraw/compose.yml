@@ -2,6 +2,8 @@ services:
   excalidraw:
     restart: unless-stopped
     image: excalidraw/excalidraw:latest
+    environment:
+      - SERVICE_URL_EXCALIDRAW_80
     networks:
       - public
     expose:
