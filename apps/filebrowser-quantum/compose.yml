@@ -3,7 +3,7 @@ services:
     image: gtstef/filebrowser:stable
     restart: unless-stopped
     environment:
-      - SERVICE_FQDN_FILEBROWSEER_80
+      - SERVICE_URL_FILEBROWSEER_80
     networks:
       - public
     volumes:

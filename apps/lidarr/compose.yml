@@ -7,7 +7,7 @@ services:
     networks:
       - public
     environment:
-      - SERVICE_FQDN_LIDARR_8686
+      - SERVICE_URL_LIDARR_8686
       - USER_UID=1000
       - USER_GID=1000
       - TZ=Europe/London

@@ -7,7 +7,7 @@ services:
     expose:
       - 8989
     environment:
-      - SERVICE_FQDN_SONARR_8989
+      - SERVICE_URL_SONARR_8989
       - USER_UID=1000
       - USER_GID=1000
       - TZ=Europe/London

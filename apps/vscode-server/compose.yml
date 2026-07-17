@@ -1,16 +1,17 @@
 services:
-  code-server:
+  vscode-server:
     image: lscr.io/linuxserver/code-server:latest
     restart: unless-stopped
     networks:
       - public
     environment:
+      - SERVICE_URL_CODESERVER_8080
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - PASSWORD=${PASSWORD}
+      - PASSWORD=${SERVICE_PASSWORD_CODESERVER}
       - HASHED_PASSWORD=
-      - SUDO_PASSWORD=${SUDO_PASSWORD}
+      - SUDO_PASSWORD=${SERVICE_PASSWORD_CODESERVERSUDE}
       # - SUDO_PASSWORD_HASH=
       # - PROXY_DOMAIN=${COMPOSE_PROJECT_NAME}.${DOMAIN_NAME}
       - DEFAULT_WORKSPACE=/config/workspace

@@ -5,8 +5,8 @@ services:
     networks:
       - public
     environment:
-      - SERVICE_FQDN_VAULTWARDEN_80
-      DOMAIN: ${VAULTWARDEN_DOMAIN}
+      - SERVICE_URL_VAULTWARDEN_80
+      - DOMAIN=${SERVICE_URL_VAULTWARDEN_80}
     volumes:
       - data:/data/
     expose:

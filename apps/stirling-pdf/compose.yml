@@ -3,7 +3,7 @@ services:
     image: stirlingtools/stirling-pdf:latest
     restart: unless-stopped
     environment:
-      - SERVICE_FQDN_STIRLINGPDF_8080
+      - SERVICE_URL_STIRLINGPDF_8080
       - SECURITY_ENABLELOGIN: true
     expose:
       - 8080

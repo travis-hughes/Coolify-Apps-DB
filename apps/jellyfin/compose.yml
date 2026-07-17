@@ -4,7 +4,7 @@ services:
     restart: unless-stopped
     user: 1000:1000
     environment:
-      - SERVICE_FQDN_JELLYFIN_8096
+      - SERVICE_URL_JELLYFIN_8096
     expose:
       - 8096
     networks:
