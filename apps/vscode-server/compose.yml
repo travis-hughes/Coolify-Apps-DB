@@ -5,9 +5,9 @@ services:
     networks:
       - public
     environment:
-      - PUID={{environment.USER_ID}}
-      - PGID={{environment.GROUP_ID}}
-      - TZ={{environment.TZ}}
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
       - PASSWORD=${PASSWORD}
       - HASHED_PASSWORD=
       - SUDO_PASSWORD=${SUDO_PASSWORD}

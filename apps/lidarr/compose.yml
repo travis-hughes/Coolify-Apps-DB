@@ -7,9 +7,9 @@ services:
     networks:
       - public
     environment:
-      - USER_UID={{environment.USER_ID}}
-      - USER_GID={{environment.GROUP_ID}}
-      - TZ={{environment.TZ}}
+      - USER_UID=1000
+      - USER_GID=1000
+      - TZ=Europe/London
     volumes:
       - config:/config
       - type: volume
